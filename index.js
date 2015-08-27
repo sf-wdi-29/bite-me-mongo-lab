@@ -1,9 +1,10 @@
 // REQUIREMENTS //
-var express = require("express");
-var app = express();
-var path = require("path");
-var bodyParser = require("body-parser");
-var views = path.join(process.cwd(), "views/");
+var express = require("express"),
+    app = express(),
+    path = require("path"),
+    bodyParser = require("body-parser"),
+    _ = require("underscore"),
+    views = path.join(process.cwd(), "views/");
 
 // CONFIG //
 // serve js & css files
@@ -14,11 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // DATA //
 var foods =[
-  {id: 0, name: "Sushiritto", yumminess: "quite"},
-  {id: 1, name: "Green Eggs & Ham", yumminess: "sure"},
-  {id: 2, name: "Crayfish", yumminess: "depending"},
-  {id: 3, name: "Foie Gras", yumminess: "omg"},
-  {id: 4, name: "Kale", yumminess: "meh"}
+  {_id: 0, name: "Sushiritto", yumminess: "quite"},
+  {_id: 1, name: "Green Eggs & Ham", yumminess: "sure"},
+  {_id: 2, name: "Crayfish", yumminess: "depending"},
+  {_id: 3, name: "Foie Gras", yumminess: "omg"},
+  {_id: 4, name: "Kale", yumminess: "meh"}
 ];
 
 // ROUTES //
@@ -36,11 +37,24 @@ app.get("/foods", function (req, res){
 app.post("/foods", function (req, res){
   var newFood = req.body;
   // add a unique id
-  newFood.id = foods[foods.length - 1].id + 1;
+  newFood._id = foods[foods.length - 1]._id + 1;
   // add new food to DB (array, really...)
   foods.push(newFood);
   // send a response with newly created object
   res.send(newFood);
+});
+
+app.delete("/foods/:id", function (req, res){
+  // set the value of the id
+  var targetId = parseInt(req.params.id, 10);
+  // find item in the array matching the id
+  var targetItem = _.findWhere(foods, {_id: targetId});
+  // get the index of the found item
+  var index = foods.indexOf(targetItem);
+  // remove the item at that index, only remove 1 item
+  foods.splice(index, 1);
+  // render deleted object
+  res.send(targetItem);
 });
 
 app.listen(3000, function (){
