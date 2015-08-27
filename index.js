@@ -15,15 +15,6 @@ app.use("/vendor", express.static("bower_components"));
 // body parser config to accept all datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// DATA //
-var foods =[
-  {_id: 0, name: "Sushiritto", yumminess: "quite"},
-  {_id: 1, name: "Green Eggs & Ham", yumminess: "sure"},
-  {_id: 2, name: "Crayfish", yumminess: "depending"},
-  {_id: 3, name: "Foie Gras", yumminess: "omg"},
-  {_id: 4, name: "Kale", yumminess: "meh"}
-];
-
 // ROUTES //
 app.get("/", function (req, res){
   res.sendFile(path.join(views + 'index.html'));
