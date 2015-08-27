@@ -6,6 +6,8 @@ var express = require("express"),
     _ = require("underscore"),
     views = path.join(process.cwd(), "views/");
 
+var db = require("./models");
+
 // CONFIG //
 // serve js & css files
 app.use("/static", express.static("public"));
@@ -30,8 +32,13 @@ app.get("/", function (req, res){
 
 // foods index path
 app.get("/foods", function (req, res){
-  // render foods index as JSON
-  res.send(foods);
+  db.Food.find({}, function(err, foods_list){
+    if (err) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+    res.send(foods_list);
+  })
 });
 
 app.post("/foods", function (req, res){
