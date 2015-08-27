@@ -26,12 +26,10 @@ var foods =[
 
 // ROUTES //
 app.get("/", function (req, res){
-  // render index.html
   res.sendFile(path.join(views + 'index.html'));
 });
 
-// foods index path
-app.get("/foods", function (req, res){
+app.get("/foods", function index(req, res){
   db.Food.find({}, function(err, foods_list){
     if (err) {
       console.log(err);
@@ -41,27 +39,27 @@ app.get("/foods", function (req, res){
   })
 });
 
-app.post("/foods", function (req, res){
+app.post("/foods", function create(req, res){
   var newFood = req.body;
-  // add a unique id
-  newFood._id = foods[foods.length - 1]._id + 1;
-  // add new food to DB (array, really...)
-  foods.push(newFood);
-  // send a response with newly created object
-  res.send(newFood);
+  db.Food.create(newFood, function(err, food){
+    if (err) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+    res.send(food);
+  })
 });
 
-app.delete("/foods/:id", function (req, res){
-  // set the value of the id
-  var targetId = parseInt(req.params.id, 10);
-  // find item in the array matching the id
-  var targetItem = _.findWhere(foods, {_id: targetId});
-  // get the index of the found item
-  var index = foods.indexOf(targetItem);
-  // remove the item at that index, only remove 1 item
-  foods.splice(index, 1);
-  // render deleted object
-  res.send(targetItem);
+app.delete("/foods/:id", function destroy(req, res){
+  var id = req.params.id;
+  db.Food.remove({_id: id}, function(err, food){
+    if (err) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+    res.sendStatus(200);
+  });
+
 });
 
 app.listen(3000, function (){
