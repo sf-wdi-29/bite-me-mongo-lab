@@ -79,6 +79,8 @@ module.exports = Food;
 #### Step 2. Connect to the Database
 Next, let's wire it all up:
 
+First, open a new terminal tab and type `mongod` to start a local instance of MongoDB on your computer. This is only necessary the first time you use MongoDB or when you restart your computer. You MUST do this step or your database will not work!
+
 ``` bash
 touch models/index.js
 ```

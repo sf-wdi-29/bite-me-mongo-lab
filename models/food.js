@@ -1,6 +1,5 @@
-var mongoose = require("mongoose");
-
-var Schema = mongoose.Schema;
+var mongoose = require("mongoose"),
+	Schema = mongoose.Schema;
 
 var FoodSchema = new Schema({
   name: {
@@ -10,8 +9,13 @@ var FoodSchema = new Schema({
   yumminess: {
     type: String,
     required: true
-  }
-})
+  },
+  ingredients: [{
+    // Food REFERENCES ingredients
+    type: Schema.Types.ObjectId,
+    ref: 'Ingredient'
+  }]
+});
 
 var Food = mongoose.model("Food", FoodSchema);
 

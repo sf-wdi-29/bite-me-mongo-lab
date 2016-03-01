@@ -27,7 +27,7 @@ app.get("/foods", function index(req, res){
       return res.sendStatus(400);
     }
     res.send(foods_list);
-  })
+  });
 });
 
 app.post("/foods", function create(req, res){
