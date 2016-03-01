@@ -105,7 +105,7 @@ If you open the node REPL by typing `node` in the terminal, you can do the follo
 ``` bash
 var db = require('./models');
 
-db.Food.create({name: "foo", tastiness: "very"}, function (err, food) {
+db.Food.create({name: "foo", yuminess: "very"}, function (err, food) {
     if (err) { return console.log(err); };
     console.log(food);
 });
