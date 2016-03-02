@@ -122,7 +122,7 @@ Now you should be able to type the following, and see our new food item:
 
 **Now let's do it in the express app!**
 
-#### Step 3. Plug the database into express
+#### Step 4. Plug the database into express
 
 
 Add this line near the top of `index.js`:
