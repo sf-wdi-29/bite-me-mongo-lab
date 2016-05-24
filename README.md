@@ -16,6 +16,8 @@ Run the server:
 nodemon index.js
 ```
 
+>If you don't have `nodemon` run `npm install -g nodemon`
+
 
 ## Instructions
 
