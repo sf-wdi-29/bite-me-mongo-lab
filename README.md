@@ -140,7 +140,7 @@ The time has come for us to swap out all our hardcoded data for live data from o
 Hint: Here's what our index route might look like:
 
 ``` javascript
-app.get("/allthefoods", function(req, res){
+app.get("/foods", function(req, res){
 
     db.Food.find({}, function(err, foods){
         if (err) {
