@@ -21,12 +21,12 @@ app.get("/", function (req, res){
 });
 
 app.get("/foods", function index(req, res){
-  db.Food.find({}, function(err, foods_list){
+  db.Food.find({}, function(err, foods){
     if (err) {
       console.log(err);
       return res.sendStatus(400);
     }
-    res.send(foods_list);
+    res.send(foods);
   });
 });
 
